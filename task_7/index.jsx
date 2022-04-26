@@ -1,31 +1,28 @@
 import { useState } from 'react';
 
-const Block1 = ({ mouseEnterCallbak, imgSrc, imgAlt }) => {
+const BlockWrapper = ({ mouseEnterCallbak, children }) => {
     const [ isActive, setActive ] = useState(false);
 
     const mouseEnterHandler = () => {
         setActive(true);
         mouseEnterCallbak();
-    }
+    };
 
     return (
         <div onMouseEnter={mouseEnterHandler} className={ isActive ? 'active': '' }>
-            <img src={imgSrc} alt={imgAlt} />
+            {children}
         </div>
     );
-}
+};
 
-const Block2 = ({ mouseEnterCallbak, content }) => {
-    const [ isActive, setActive ] = useState(false);
+const Block1 = ({ mouseEnterCallbak, imgSrc, imgAlt }) => (
+    <BlockWrapper mouseEnterCallbak={mouseEnterCallbak}>
+        <img src={imgSrc} alt={imgAlt} />
+    </BlockWrapper>
+);
 
-    const mouseEnterHandler = () => {
-        setActive(true);
-        mouseEnterCallbak();
-    }
-
-    return (
-        <div onMouseEnter={mouseEnterHandler} className={ isActive ? 'active': '' }>
-            <p>BLock2 content: {content}</p>
-        </div>
-    );
-}
+const Block2 = ({ mouseEnterCallbak, content }) => (
+    <BlockWrapper mouseEnterCallbak={mouseEnterCallbak}>
+        <p>BLock2 content: {content}</p>
+    </BlockWrapper>
+);
